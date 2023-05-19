@@ -18,8 +18,8 @@ export class TaskRepository implements ITaskRepository {
   save(taskDto: TaskDTO): Task {
     const newTask = {
       id: this.nextId++,
-      ...taskDto,
-      concluida: taskDto.concluida || false
+      titulo: taskDto.titulo,
+      concluida: taskDto?.concluida || false
     }
     this.tasks.push(newTask)
     return newTask
