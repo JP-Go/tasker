@@ -8,3 +8,5 @@ export type TaskDTO = {
   titulo: string, 
   concluida?: boolean
 }
+
+export type TaskView = Task
