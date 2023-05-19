@@ -1,6 +1,7 @@
 import { Task, TaskDTO } from "../@types/Task"
+import { ITaskRepository } from "./itask-repository";
 
-export class TaskRepository {
+export class TaskRepository implements ITaskRepository {
 
   private nextId = 4;
   private tasks: Task[] = [
@@ -10,11 +11,11 @@ export class TaskRepository {
   ]
   constructor() { }
 
-  getTaskById(id: number): Task | undefined {
+  getById(id: number): Task | undefined {
     return this.tasks.find(({ id: taskId }) => taskId === id)
   }
 
-  saveTask(taskDto: TaskDTO): Task {
+  save(taskDto: TaskDTO): Task {
     const newTask = {
       id: this.nextId++,
       ...taskDto,
@@ -24,7 +25,7 @@ export class TaskRepository {
     return newTask
   }
 
-  deleteTask(id: number) {
+  delete(id: number): void {
     const taskToDelete = this.tasks.find(({ id: taskId }) => id === taskId)
     if (!taskToDelete) {
       return
@@ -32,7 +33,7 @@ export class TaskRepository {
     this.tasks = this.tasks.filter(task => task !== taskToDelete)
   }
 
-  updateTask(id: number, taskDto: TaskDTO) {
+  update(id: number, taskDto: TaskDTO): Task | undefined {
     const taskIndex = this.tasks.findIndex(({ id: taskId }) => taskId === id)
     if (taskIndex < 0)
       return
@@ -42,6 +43,5 @@ export class TaskRepository {
     }
     return this.tasks[taskIndex]
   }
-
 
 }
