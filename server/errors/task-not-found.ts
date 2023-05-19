@@ -1,4 +1,4 @@
-class TaskNotFoundError extends Error{
+export class TaskNotFoundError extends Error{
   
   constructor(message:string){
     super(message)
