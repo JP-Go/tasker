@@ -1,4 +1,5 @@
 import { Task, TaskDTO } from "../@types/Task";
+import { TaskNotFoundError } from "../errors/task-not-found";
 import { ITaskRepository } from "../repositories/itask-repository";
 import { ITaskService } from "./itask-service";
 
