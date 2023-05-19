@@ -16,17 +16,11 @@ export class TaskService implements ITaskService {
 
   delete(id: number): void {
     const task = this.getById(id)
-    if (task === undefined){
-      throw new TaskNotFoundError(`Task with id ${id} does not exists`);
-    }
     this.taskRepository.delete(task.id)
   }
 
   update(id: number, taskDto: TaskDTO): Task {
     const task = this.getById(id)
-    if (task === undefined){
-      throw new TaskNotFoundError(`Task with id ${id} does not exists`);
-    }
     return this.taskRepository.update(task.id,taskDto)!
   }
   save(taskDto: TaskDTO): Task {
