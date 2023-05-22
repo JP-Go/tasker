@@ -7,6 +7,10 @@ export class TaskService implements ITaskService {
 
   constructor(private readonly taskRepository: ITaskRepository){}
 
+  getAll(): Task[] {
+    return this.taskRepository.getAll()
+  }
+
   getById(id: number): Task {
     const task = this.taskRepository.getById(id)
     if (task === undefined){

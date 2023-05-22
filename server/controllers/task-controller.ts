@@ -12,6 +12,10 @@ export class TaskController {
 
   constructor(private readonly taskService: ITaskService) { }
 
+  getAllTasks(_req: Request, res: Response) {
+    return res.status(200).json(this.taskService.getAll())
+  }
+
   getTask(req: Request, res: Response) {
     try {
       const id = parseInt(req.params.id, 10)
@@ -53,7 +57,7 @@ export class TaskController {
     const id = +req.params.id
     const body = req.body
     const taskDto = taskDtoSchema.parse(body)
-    res.status(200).json(this.taskService.update(id,taskDto))
+    res.status(200).json(this.taskService.update(id, taskDto))
   }
 
 
