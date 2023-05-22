@@ -14,6 +14,8 @@ taskRouter.route("/:id")
   .delete((req, res) => taskController.deleteTask(req, res))
   .patch((req, res) => taskController.updateTask(req, res))
 
-taskRouter.route('/').post((req, res) => taskController.saveTask(req, res))
+taskRouter.route('/')
+  .get((req,res) => taskController.getAllTasks(req,res))
+  .post((req, res) => taskController.saveTask(req, res))
 
 export { taskRouter }

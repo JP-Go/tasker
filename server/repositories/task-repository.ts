@@ -11,6 +11,10 @@ export class TaskRepository implements ITaskRepository {
   ]
   constructor() { }
 
+  getAll(): Task[] {
+     return this.tasks
+  }
+
   getById(id: number): Task | undefined {
     return this.tasks.find(({ id: taskId }) => taskId === id)
   }
