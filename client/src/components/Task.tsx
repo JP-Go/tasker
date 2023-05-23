@@ -4,7 +4,7 @@ import { TaskCheckbox } from "./TaskCheckbox"
 import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { deleteTask, updateTask } from "../api/task-api"
 import colors from 'tailwindcss/colors'
-import { useRef, useState } from "react"
+import { FormEvent, useRef, useState } from "react"
 
 interface TaskProps {
   task: TaskType,
@@ -34,31 +34,40 @@ export function Task({ task }: TaskProps) {
     }
   })
 
+  function handleChangeTaskTitle(e: FormEvent) {
+    e.preventDefault()
+    updateTaskMutation.mutate({
+      titulo: title,
+      concluida: task.concluida
+    })
+    inputRef.current?.blur()
+  }
+
+  function toggleTaskCompletion(newState: boolean) {
+    updateTaskMutation.mutate({
+      titulo: title,
+      concluida: newState
+    })
+  }
+
   return (
     <div
       className="w-full h-12 p-px text-emerald-800 bg-gradient-to-r from-emerald-800 to-emerald-400 rounded-md shadow flex place-items-center"
     >
       <form
         className="flex justify-between items-center flex-1 bg-white rounded h-full p-2"
-        onSubmit={(e) => {
-          e.preventDefault()
-          updateTaskMutation.mutate({
-            titulo: title,
-            concluida: task.concluida
-          })
-          inputRef.current?.blur()
-        }}>
+        onSubmit={handleChangeTaskTitle}>
+
         <input
           ref={inputRef}
           className={`flex-1 outline-none ${task.concluida ? "line-through" : ""}`} value={title} onChange={(e) => setTitle(e.target.value)} />
+
         <div className="flex gap-2 items-center h-full">
-          <TaskCheckbox checked={task.concluida} clickHandle={(newState: boolean) => {
-            updateTaskMutation.mutate({
-              titulo: title,
-              concluida: newState
-            })
-          }} />
-          <Trash className="px-2 rounded inline-block cursor-pointer transition-transform hover:scale-125  active:scale-90" size={40} color={colors["emerald"]["500"]} weight="bold"
+          <TaskCheckbox checked={task.concluida} clickHandle={toggleTaskCompletion} />
+          <Trash 
+            className="px-2 rounded inline-block cursor-pointer transition-transform hover:scale-125 active:scale-90" 
+            size={40} 
+            color={colors["emerald"]["500"]} weight="bold"
             onClick={() => deleteTaskMutation.mutate(task.id)}
           />
         </div>
