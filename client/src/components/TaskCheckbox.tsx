@@ -9,7 +9,7 @@ interface TaskCheckboxProps {
 
 export function TaskCheckbox(props: TaskCheckboxProps) {
 
-  return <Checkbox.Root className={`border border-slate-700 w-6 h-6 rounded bg-slate-700 flex items-center justify-center ${props.checked ? "bg-slate-700" : "bg-white"} transition-colors`}
+  return <Checkbox.Root className={`border border-emerald-700 w-6 h-6 rounded flex items-center justify-center ${props.checked ? "bg-emerald-700" : "bg-white"} transition-all hover:scale-125 active:scale-90`}
     checked={props.checked}
     onClick={() => {
       props.clickHandle(!props.checked)

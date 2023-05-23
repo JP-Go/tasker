@@ -23,21 +23,21 @@ function App() {
 
 
   return (
-    <main className="w-screen h-screen flex flex-col items-center pt-20 bg-slate-100 px-10 gap-10">
-      <h1 className="bg-gradient-to-r from-slate-800 to-slate-400 text-6xl inline-block text-transparent bg-clip-text font-medium">Tasker</h1>
-      <h2 className="text-slate-400 text-1xl inline-block bg-clip-text font-medium">Um lugar para manter suas tarefas em dia</h2>
+    <main className="w-screen h-screen flex flex-col items-center pt-20 px-10 gap-10">
+      <h1 className="bg-gradient-to-r from-emerald-800 to-emerald-400 text-6xl inline-block text-transparent bg-clip-text font-medium">Tasker</h1>
+      <h2 className="text-emerald-500 text-1xl inline-block bg-clip-text font-medium">Um lugar para manter suas tarefas em dia</h2>
       <form className="pt-10 w-full flex gap-5 items-center max-w-[600px]" onSubmit={(e) => {
         e.preventDefault()
-        createTaskMutation.mutate({ titulo: newTaskTitle, concluida: false })
+        createTaskMutation.mutate({ titulo: newTaskTitle.trim(), concluida: false })
         setNewTaskTitle("")
       }}>
         <input
-          className="p-2 bg-white w-full h-11 rounded border-0 outline outline-1 outline-slate-300 focus:outline-slate-700 placeholder:text-lg text-slate-700"
+          className="p-2 bg-white w-full h-11 rounded border-0 outline outline-1 outline-emerald-500 focus:outline-emerald-700 focus:outline-2 placeholder:text-lg text-slate-700"
           placeholder="O que você tem a fazer hoje?"
           value={newTaskTitle}
-          onChange={(e) => setNewTaskTitle(e.target.value.trim())}
+          onChange={(e) => setNewTaskTitle(e.target.value)}
         />
-        <button className="h-10 w-10 bg-slate-700 rounded text-3xl text-white flex items-center justify-center text-center">
+        <button className="h-10 w-10 bg-emerald-700 rounded text-3xl text-white flex items-center justify-center text-center">
           <Plus color={white} size={22} />
         </button>
       </form>
