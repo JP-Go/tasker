@@ -4,10 +4,14 @@ import { white } from "tailwindcss/colors"
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { createTask, getAllTasks } from "./api/task-api"
 import { useState } from "react"
+import {useAutoAnimate} from '@formkit/auto-animate/react';
 
 function App() {
 
+  const [parent] = useAutoAnimate()
+
   const [newTaskTitle, setNewTaskTitle] = useState("")
+
   const { data, isSuccess } = useQuery(["get-all-tasks"], getAllTasks)
   const queryClient = useQueryClient()
   const createTaskMutation = useMutation({
@@ -20,7 +24,6 @@ function App() {
   })
 
   const tasks = data ? [...data].sort((taskA, taskB) => taskA.concluida > taskB.concluida ? 1 : -1) : undefined
-
 
   return (
     <main className="w-screen h-screen flex flex-col items-center pt-20 px-10 gap-10">
@@ -41,7 +44,9 @@ function App() {
           <Plus color={white} size={22} />
         </button>
       </form>
-      <div className="w-full max-w-[600px] gap-5 flex flex-col">
+      <div 
+        ref={parent}
+        className="w-full max-w-[600px] gap-5 flex flex-col">
         {isSuccess && tasks ? (
           tasks.map(task =>
             <Task key={task.id} task={task} />
