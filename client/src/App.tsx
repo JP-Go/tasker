@@ -36,24 +36,24 @@ function App() {
   return (
     <main className="w-screen h-screen flex flex-col items-center pt-20 px-10 gap-10">
 
-      <h1 className="bg-gradient-to-r from-emerald-800 to-emerald-400 text-6xl inline-block text-transparent bg-clip-text font-medium">Tasker</h1>
-      <h2 className="text-emerald-500 text-1xl inline-block bg-clip-text font-medium">Um lugar para manter suas tarefas em dia</h2>
+      <h1 className="bg-gradient-to-r from-emerald-800 to-emerald-400 lg:text-8xl text-6xl inline-block text-transparent bg-clip-text font-medium">Tasker</h1>
+      <h2 className="text-emerald-500 lg:text-3xl text-1xl inline-block bg-clip-text font-medium">Um lugar para manter suas tarefas em dia</h2>
 
       <form className="pt-10 w-full flex gap-5 items-center max-w-[600px]" onSubmit={handleSubmit}>
         <input
-          className="p-2 bg-white w-full h-11 rounded border-0 outline outline-1 outline-emerald-500 focus:outline-emerald-700 focus:outline-2 placeholder:text-lg text-slate-700"
+          className="p-2 bg-white w-full h-11 rounded border-0 outline outline-1 outline-emerald-500 focus:outline-emerald-700 focus:outline-2 lg:text-2xl text-slate-700"
           placeholder="O que você tem a fazer hoje?"
           value={newTaskTitle}
           onChange={(e) => setNewTaskTitle(e.target.value)}
         />
-        <button className="h-10 w-10 bg-emerald-700 rounded text-3xl text-white flex items-center justify-center text-center">
+        <button className="h-10 w-10 bg-emerald-700 rounded text-white flex items-center justify-center text-center">
           <Plus color={white} size={22} />
         </button>
       </form>
 
       <div
         ref={parent}
-        className="w-full max-w-[600px] gap-5 flex flex-col">
+        className="w-full max-w-[600px] gap-5 flex flex-col lg:text-2xl">
         {hasTasksReady ? (
           tasks.map(task =>
             <Task key={task.id} task={task} />
