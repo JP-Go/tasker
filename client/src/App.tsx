@@ -1,0 +1,55 @@
+import { Task } from "./components/Task"
+import { Plus } from "phosphor-react"
+import { white } from "tailwindcss/colors"
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
+import { createTask, getAllTasks } from "./api/task-api"
+import { useState } from "react"
+
+function App() {
+
+  const [newTaskTitle, setNewTaskTitle] = useState("")
+  const { data, isSuccess } = useQuery(["get-all-tasks"], getAllTasks)
+  const queryClient = useQueryClient()
+  const createTaskMutation = useMutation({
+    mutationFn: createTask,
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ["get-all-tasks"]
+      })
+    }
+  })
+
+  const tasks = data ? [...data].sort((taskA, taskB) => taskA.concluida > taskB.concluida ? 1 : -1) : undefined
+
+
+  return (
+    <main className="w-screen h-screen flex flex-col items-center pt-20 bg-slate-100 px-10 gap-10">
+      <h1 className="bg-gradient-to-r from-slate-800 to-slate-400 text-6xl inline-block text-transparent bg-clip-text font-medium">Tasker</h1>
+      <h2 className="text-slate-400 text-1xl inline-block bg-clip-text font-medium">Um lugar para manter suas tarefas em dia</h2>
+      <form className="pt-10 w-full flex gap-5 items-center max-w-[600px]" onSubmit={(e) => {
+        e.preventDefault()
+        createTaskMutation.mutate({ titulo: newTaskTitle, concluida: false })
+        setNewTaskTitle("")
+      }}>
+        <input
+          className="p-2 bg-white w-full h-11 rounded border-0 outline outline-1 outline-slate-300 focus:outline-slate-700 placeholder:text-lg text-slate-700"
+          placeholder="O que você tem a fazer hoje?"
+          value={newTaskTitle}
+          onChange={(e) => setNewTaskTitle(e.target.value.trim())}
+        />
+        <button className="h-10 w-10 bg-slate-700 rounded text-3xl text-white flex items-center justify-center text-center">
+          <Plus color={white} size={22} />
+        </button>
+      </form>
+      <div className="w-full max-w-[600px] gap-5 flex flex-col">
+        {isSuccess && tasks ? (
+          tasks.map(task =>
+            <Task key={task.id} task={task} />
+          )
+        ) : <div>loading</div>}
+      </div>
+    </main>
+  )
+}
+
+export default App
