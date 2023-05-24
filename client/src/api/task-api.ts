@@ -1,8 +1,10 @@
 import axios from 'axios'
 import { Task, TaskDTO } from '../@types/Task'
 
+const baseURL = import.meta.env.VITE_API_URL || "http://localhost:4000"
+
 const api = axios.create({
-  baseURL: "http://localhost:4000/tasks",
+  baseURL: baseURL + '/tasks' ,
 })
 
 export async function getAllTasks() {

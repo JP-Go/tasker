@@ -66,5 +66,15 @@ Esse projeto pode ser iniciado pelo terminal utilizando os seguintes passos:
 1. Inicie o servidor com o comando `npm run start`
 1. Abra outro terminal e vá para pasta client : `cd client`
 1. Novamente execute o comando `npm run build`
-1. Em seguida execute o comando `npm run start`
+1. Em seguida execute o comando `node server.mjs`
 1. Abra seu navegador na url indicada pelo prompt e pronto.
+
+# :whale: Incializando com docker
+
+O cliente e o servidor dessa aplicação também podem ser inicializados utilizando
+docker. A maneira mais fácil de realizar isso é utilizando o `docker-compose`.
+Para isso, basta seguir os passos abaixo (assumindo que docker e docker-compose estão instalados):
+
+1. Clone esse repositório `git clone https://www.github.com/JP-Go/tasker.git`
+1. Entre no diretório e execute o comando `docker-compose up -d`
+1. Abra seu navegador em `http://localhost:3000` para usar o app

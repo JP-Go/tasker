@@ -1,0 +1,22 @@
+version: '3'
+
+services:
+  tasker-client:
+    container_name: tasker-client
+    build: ./client
+    networks: 
+      - tasker
+    ports:
+      - 3000:3000
+
+  tasker-server:
+    container_name: tasker-server
+    build: server
+    networks:
+      - tasker
+    ports:
+      - 4000:4000
+
+networks:
+  tasker:
+    driver: bridge
